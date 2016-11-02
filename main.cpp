@@ -24,7 +24,7 @@ int __cdecl main(int argc, char **argv)
             *ptr = NULL,
             hints;
 
-    char *sendbuf;
+    char sendbuf[DEFAULT_BUFLEN];
 
     char recvbuf[DEFAULT_BUFLEN];
     int iResult;
@@ -88,7 +88,7 @@ int __cdecl main(int argc, char **argv)
     }
 
     // Send an initial buffer
-    std::cin >> sendbuf;
+    std::cin.getline(sendbuf, DEFAULT_BUFLEN);
     iResult = send( ConnectSocket, sendbuf, (int)strlen(sendbuf), 0 );
     if (iResult == SOCKET_ERROR) {
         printf("send failed with error: %d\n", WSAGetLastError());
