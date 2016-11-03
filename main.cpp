@@ -6,6 +6,7 @@
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <thread>
 
 
 // Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
@@ -16,8 +17,13 @@
 
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27030"
+
 int __cdecl main(int argc, char **argv)
 {
+
+    std::thread keyboardSensor();
+    std::thread connectionSensor();
+
     WSADATA wsaData;
     SOCKET ConnectSocket = INVALID_SOCKET;
     struct addrinfo *result = NULL,
@@ -119,6 +125,17 @@ int __cdecl main(int argc, char **argv)
     // cleanup
     closesocket(ConnectSocket);
     WSACleanup();
+
+    //Threads
+   // std::thread keyboardSensor([&]{
+   //
+//	});
+   //
+//	std::thread connectionSensor([&]{
+   //
+//	});
+//	connectionSensor.join();
+//	keyboardSensor.join();
 
     return 0;
 }
